@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: cc526c5f6db13bc42aedc6e7b6f25986
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - SlotPrefab: {fileID: 73385716187671544, guid: 158ff9a2e69c2dc4fb49c937d2fd9e50, type: 3}
+  - Board: {instanceID: 0}
+  - BoardWin: {instanceID: 0}
+  - EditWin: {instanceID: 0}
+  - RemoveBtn: {instanceID: 0}
+  - AddBtn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
