@@ -3,8 +3,8 @@ using UnityEngine;
 public class LeaderboardController : MonoBehaviour
 {
     // Editor variables
-    public BoardWin boardWin;
-    public PlayerScoreWin playerScoreWin;
+    [SerializeField] BoardWin boardWin;
+    [SerializeField] PlayerScoreWin playerScoreWin;
 
     // Private
     string editNickname = "";
@@ -18,6 +18,7 @@ public class LeaderboardController : MonoBehaviour
 
         boardWin.Initialize();
         boardWin.OnEditPlayerSlotClickedEvent += EditBtnClicked;
+        playerScoreWin.OnAcceptBtnClickedEvent += PlayerScoreWinResult;
     }
 
     // Save game when quit
@@ -52,29 +53,25 @@ public class LeaderboardController : MonoBehaviour
     }
 
     // Binded to accept button in PlayerScoreWin
-    public void PlayerScoreWinResult()
+    public void PlayerScoreWinResult(string nickname, int score)
     {
         if (editNickname == "")
         {
-            if (playerScoreWin.NameInput.text == "" || playerScoreWin.ScoreInput.text == "") {
-                playerScoreWin.SetNicknameError();
-                return;
-            }
             foreach (PlayerScoreInfo info in CurrentGame.game.leaderboard)
             {
-                if (info.nickname.Equals(playerScoreWin.NameInput.text))
+                if (info.nickname.Equals(nickname))
                 {
                     playerScoreWin.SetNicknameError();
                     return;
                 }
             }
-            boardWin.AddPlayer(playerScoreWin.NameInput.text, int.Parse(playerScoreWin.ScoreInput.text));
+            boardWin.AddPlayer(nickname, score);
             playerScoreWin.gameObject.SetActive(false);
             boardWin.gameObject.SetActive(true);
         }
         else
         {
-            boardWin.EditPlayer(editNickname, int.Parse(playerScoreWin.ScoreInput.text));
+            boardWin.EditPlayer(editNickname, score);
             playerScoreWin.gameObject.SetActive(false);
             boardWin.gameObject.SetActive(true);
             editNickname = "";

@@ -1,14 +1,17 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScoreWin : MonoBehaviour
 {
+    public event Action<string, int> OnAcceptBtnClickedEvent;
+
     // Editor variables
-    public Text TitleText;
-    public Button AcceptBtn;
-    public Text AcceptBtnText;
-    public InputField NameInput;
-    public InputField ScoreInput;
+    [SerializeField] Text TitleText;
+    [SerializeField] Button AcceptBtn;
+    [SerializeField] Text AcceptBtnText;
+    [SerializeField] InputField NameInput;
+    [SerializeField] InputField ScoreInput;
 
     // Initializing after parent widget
     public void Initialize(bool edit, string name = "", int score = 0)
@@ -37,5 +40,16 @@ public class PlayerScoreWin : MonoBehaviour
     public void SetNicknameError()
     {
         NameInput.textComponent.color = Color.red;
+    }
+
+    // Binded to click event of accept button
+    public void OnAcceptClicked()
+    {
+        if (NameInput.text == "" || ScoreInput.text == "")
+        {
+            SetNicknameError();
+            return;
+        }
+        OnAcceptBtnClickedEvent.Invoke(NameInput.text, int.Parse(ScoreInput.text));
     }
 }

@@ -11,8 +11,8 @@ public class Swiper : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public event Action<int, string, int, bool> OnAnySlotClickedEvent;
 
     // Editor prefabs variables
-    public GameObject slidePrefab;
-    public GameObject SlotPrefab;
+    [SerializeField] GameObject slidePrefab;
+    [SerializeField] GameObject SlotPrefab;
 
     // Private
     List<GameObject> slides;
@@ -27,8 +27,8 @@ public class Swiper : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     bool pressed = false; // mouse is down bool for Update func.
     bool moveCancelled = false; // move has been cancelled (did not moved more than 50% of swiper widget width)
 
-    public int moveBackSpeed = 2500;
-    public int moveForwardSpeed = 5000;
+    [SerializeField] int moveBackSpeed = 2500;
+    [SerializeField] int moveForwardSpeed = 5000;
 
     // Slots & pages
     List<Slot> SlotsInBoard;
@@ -64,7 +64,7 @@ public class Swiper : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // MonoBehaviour mouse down event
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && !moveEnded)
         {
             x1 = Input.mousePosition.x;
             firstX = x1;
@@ -75,7 +75,7 @@ public class Swiper : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // MonoBehaviour mouse up event
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && pressed)
         {
             if (Mathf.Abs(-ownTransform.rect.width - slides[0].GetComponent<RectTransform>().anchoredPosition.x) > ownTransform.rect.width / 2)
             {

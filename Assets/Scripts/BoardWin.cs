@@ -7,7 +7,7 @@ public class BoardWin : MonoBehaviour
     public event Action<string, int> OnEditPlayerSlotClickedEvent;
 
     // Editor variable
-    public Swiper Board;
+    [SerializeField] Swiper Board;
 
     // Private
     int SelectedSlot = -1;

@@ -10,9 +10,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public event Action<int, string, int, bool> OnSlotClickedEvent;
 
     // Editor variables
-    public Text PlaceText;
-    public Text NicknameText;
-    public Text ScoreText;
+    [SerializeField] Text PlaceText;
+    [SerializeField] Text NicknameText;
+    [SerializeField] Text ScoreText;
 
     // Private
     int Index;
@@ -33,11 +33,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            OnSlotClickedEvent.Invoke(Index, info.nickname, int.Parse(ScoreText.text), true);
+            OnSlotClickedEvent.Invoke(Index, info.nickname, info.score, true);
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
-            OnSlotClickedEvent.Invoke(Index, info.nickname, int.Parse(ScoreText.text), false);
+            OnSlotClickedEvent.Invoke(Index, info.nickname, info.score, false);
         }
     }
 }
